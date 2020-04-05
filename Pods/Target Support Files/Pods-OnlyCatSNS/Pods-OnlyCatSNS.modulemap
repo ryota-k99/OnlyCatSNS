@@ -1,0 +1,6 @@
+framework module Pods_OnlyCatSNS {
+  umbrella header "Pods-OnlyCatSNS-umbrella.h"
+
+  export *
+  module * { export * }
+}
