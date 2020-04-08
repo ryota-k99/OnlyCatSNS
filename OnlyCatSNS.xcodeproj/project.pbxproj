@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A38E8B41243D65A4000E11B8 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E8B40243D65A4000E11B8 /* TimeLineViewController.swift */; };
+		A38E8B43243D67C8000E11B8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E8B42243D67C8000E11B8 /* PostViewController.swift */; };
 		A3D332932439BC800008854E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332922439BC800008854E /* AppDelegate.swift */; };
 		A3D332952439BC800008854E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332942439BC800008854E /* SceneDelegate.swift */; };
-		A3D332972439BC800008854E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332962439BC800008854E /* ViewController.swift */; };
+		A3D332972439BC800008854E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332962439BC800008854E /* LoginViewController.swift */; };
 		A3D3329A2439BC800008854E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3D332982439BC800008854E /* Main.storyboard */; };
 		A3D3329C2439BC830008854E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D3329B2439BC830008854E /* Assets.xcassets */; };
 		A3D3329F2439BC830008854E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3D3329D2439BC830008854E /* LaunchScreen.storyboard */; };
@@ -20,10 +22,12 @@
 		0A89D60D9374C436E6F4FC75 /* Pods_OnlyCatSNS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnlyCatSNS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		354DC8D44EE37DAEA0363DD1 /* Pods-OnlyCatSNS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlyCatSNS.debug.xcconfig"; path = "Target Support Files/Pods-OnlyCatSNS/Pods-OnlyCatSNS.debug.xcconfig"; sourceTree = "<group>"; };
 		420A8E667C39A1FC27CD26F3 /* Pods-OnlyCatSNS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlyCatSNS.release.xcconfig"; path = "Target Support Files/Pods-OnlyCatSNS/Pods-OnlyCatSNS.release.xcconfig"; sourceTree = "<group>"; };
+		A38E8B40243D65A4000E11B8 /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
+		A38E8B42243D67C8000E11B8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		A3D3328F2439BC800008854E /* OnlyCatSNS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlyCatSNS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D332922439BC800008854E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3D332942439BC800008854E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A3D332962439BC800008854E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A3D332962439BC800008854E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A3D332992439BC800008854E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A3D3329B2439BC830008854E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3D3329E2439BC830008854E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,15 +67,41 @@
 		A3D332912439BC800008854E /* OnlyCatSNS */ = {
 			isa = PBXGroup;
 			children = (
-				A3D332922439BC800008854E /* AppDelegate.swift */,
-				A3D332942439BC800008854E /* SceneDelegate.swift */,
-				A3D332962439BC800008854E /* ViewController.swift */,
-				A3D332982439BC800008854E /* Main.storyboard */,
-				A3D3329B2439BC830008854E /* Assets.xcassets */,
-				A3D3329D2439BC830008854E /* LaunchScreen.storyboard */,
+				A3D332A82439BEB00008854E /* Controllers */,
+				A3D332A72439BEA70008854E /* Models */,
+				A3D332A62439BE990008854E /* Views */,
 				A3D332A02439BC830008854E /* Info.plist */,
 			);
 			path = OnlyCatSNS;
+			sourceTree = "<group>";
+		};
+		A3D332A62439BE990008854E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A3D332922439BC800008854E /* AppDelegate.swift */,
+				A3D332942439BC800008854E /* SceneDelegate.swift */,
+				A3D332982439BC800008854E /* Main.storyboard */,
+				A3D3329B2439BC830008854E /* Assets.xcassets */,
+				A3D3329D2439BC830008854E /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A3D332A72439BEA70008854E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A3D332A82439BEB00008854E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A3D332962439BC800008854E /* LoginViewController.swift */,
+				A38E8B40243D65A4000E11B8 /* TimeLineViewController.swift */,
+				A38E8B42243D67C8000E11B8 /* PostViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		B54B88AF4C24F35A84B0C456 /* Frameworks */ = {
@@ -88,7 +118,6 @@
 				354DC8D44EE37DAEA0363DD1 /* Pods-OnlyCatSNS.debug.xcconfig */,
 				420A8E667C39A1FC27CD26F3 /* Pods-OnlyCatSNS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -207,9 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D332972439BC800008854E /* ViewController.swift in Sources */,
+				A3D332972439BC800008854E /* LoginViewController.swift in Sources */,
+				A38E8B41243D65A4000E11B8 /* TimeLineViewController.swift in Sources */,
 				A3D332932439BC800008854E /* AppDelegate.swift in Sources */,
 				A3D332952439BC800008854E /* SceneDelegate.swift in Sources */,
+				A38E8B43243D67C8000E11B8 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
