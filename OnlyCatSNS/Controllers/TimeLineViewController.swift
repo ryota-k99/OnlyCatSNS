@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class TimeLineViewController: UIViewController{
    
     
 
@@ -19,11 +19,17 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           <#code#>
-       }
-       
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           <#code#>
-       }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//           <#code#>
+//       }
+//
+//       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//           <#code#>
+//       }
+    
+    
+    @IBAction func plusButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "toPost", sender: nil)
+    }
+    
 }

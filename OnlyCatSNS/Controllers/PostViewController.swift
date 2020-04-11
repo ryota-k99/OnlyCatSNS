@@ -7,24 +7,171 @@
 //
 
 import UIKit
+import Firebase
+import EMAlertController
+import VisualRecognition
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    var userNameString = String()
+    var profileImageData = Data()
+    
+    var contentsArray = [ContentsData]()
+    
+    let visualRecognition = VisualRecognition(version: "2020-04-04", authenticator: WatsonIAMAuthenticator(apiKey: "LfnpGue2rs9EDYEe3g6-RMaRpKgUMYspfpySTm06kHUn"))
 
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var contentImage: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var commentTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        userNameString = UserDefaults.standard.object(forKey: "userName") as! String
+        profileImageData = UserDefaults.standard.object(forKey: "profileImage") as! Data
+        userNameLabel.text = userNameString
+        profileImage.image = UIImage(data: profileImageData)
+        
+        visualRecognition.serviceURL = "https://api.kr-seo.visual-recognition.watson.cloud.ibm.com/instances/012b267b-e2da-4ec9-b040-1b5051fdad0e"
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        if contentImage.image == nil{
+            DispatchQueue.main.async {
+                self.emptyAlert()
+            }
+            return
+        }
+        
+        let timeLineDB = Database.database().reference().child("content").childByAutoId()
+        let storage = Storage.storage().reference(forURL: "gs://onlycatsnsapp.appspot.com")
+        
+        let profileImageKey = timeLineDB.child("profileImage").childByAutoId().key
+        let contentImageKey = timeLineDB.child("contentImage").childByAutoId().key
+        let profileImageRef = storage.child("\(String(describing: profileImageKey)).jng")
+        let contentImageRef = storage.child("\(String(describing: contentImageKey)).jng")
+        
+        var profileImageData = Data()
+        var contentImageData = Data()
+        
+        if profileImage.image != nil{
+            profileImageData = (profileImage.image?.jpegData(compressionQuality: 0.01)) as! Data
+        }
+        
+        if contentImage.image != nil{
+            contentImageData = (contentImage.image?.jpegData(compressionQuality: 0.01)) as! Data
+        }
+        
+        let uploadTask = profileImageRef.putData(profileImageData,metadata: nil){
+            (metadata,error) in
+            if error != nil{
+                return
+            }
+            let uploadTask = contentImageRef.putData(contentImageData,metadata: nil){
+                (metadata,error) in
+                if error != nil{
+                    return
+                }
+                
+                profileImageRef.downloadURL { (profileImageURL, error) in
+                    if profileImageURL != nil{
+                        contentImageRef.downloadURL { (contentImageURL, error) in
+                            if contentImageURL != nil{
+                                let resultURL = contentImageURL?.absoluteString
+                                self.visualRecognition.classify(url: resultURL) {response, error in
+                                    if error != nil{
+                                        print(error)
+                                    }
+                                    
+                                    let resultString:String = (response?.result?.images[0].classifiers[0].classes[0].typeHierarchy)!
+                                    if resultString.contains("cat") == false{
+                                        DispatchQueue.main.async {
+                                            self.checkAlert()
+                                        }
+                                    }else{
+                                        DispatchQueue.main.async {
+                                            if self.userNameString != nil && profileImageURL != nil && contentImageURL != nil && self.commentTextField.text != nil{
+                                                let timeLineInfo = ["userName":self.userNameString,
+                                                                    "profileImageURL":profileImageURL,
+                                                                    "contentImageURL":contentImageURL,
+                                                                    "comment":self.commentTextField.text,
+                                                                    "postDate":ServerValue.timestamp()] as [String:Any]
+                                                timeLineDB.updateChildValues(timeLineInfo)
+                                                self.navigationController?.popViewController(animated: true)
+                                            }else{
+                                                DispatchQueue.main.async {
+                                                    self.emptyAlert()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        uploadTask.resume()
+        dismiss(animated: true, completion: nil)
     }
-    */
-
+    
+    
+    @IBAction func albumButtonPressed(_ sender: Any) {
+       let sourceType:UIImagePickerController.SourceType = .photoLibrary
+       if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+           let cameraPicker = UIImagePickerController()
+           cameraPicker.allowsEditing = true
+           cameraPicker.sourceType = sourceType
+           cameraPicker.delegate = self
+           present(cameraPicker,animated: true,completion: nil)
+               
+       }
+    }
+    
+    @IBAction func cameraButtonPressed(_ sender: Any) {
+        let sourceType:UIImagePickerController.SourceType = .camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.allowsEditing = true
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            present(cameraPicker,animated: true,completion: nil)
+        }
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if info[.originalImage] as? UIImage != nil{
+            let selectedImage = info[.originalImage] as! UIImage
+            contentImage.image = selectedImage
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func checkAlert(){
+        let alert = EMAlertController(title: "どうやら猫ではないようです！", message: "猫の画像のみ投稿できます！")
+        let action = EMAlertAction(title: "OK", style: .normal)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func emptyAlert(){
+        let alert = EMAlertController(title: "何かが入力されていません！", message: "入力してください。")
+        let action = EMAlertAction(title: "OK", style: .normal)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
 }

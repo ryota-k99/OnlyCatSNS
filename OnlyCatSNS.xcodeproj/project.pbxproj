@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A38E8B41243D65A4000E11B8 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E8B40243D65A4000E11B8 /* TimeLineViewController.swift */; };
 		A38E8B43243D67C8000E11B8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E8B42243D67C8000E11B8 /* PostViewController.swift */; };
+		A3C343A224418D4300AFC001 /* ContentsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C343A124418D4300AFC001 /* ContentsData.swift */; };
+		A3C343A4244190FA00AFC001 /* GoogleService-Info .plist in Resources */ = {isa = PBXBuildFile; fileRef = A3C343A3244190FA00AFC001 /* GoogleService-Info .plist */; };
 		A3D332932439BC800008854E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332922439BC800008854E /* AppDelegate.swift */; };
 		A3D332952439BC800008854E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332942439BC800008854E /* SceneDelegate.swift */; };
 		A3D332972439BC800008854E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D332962439BC800008854E /* LoginViewController.swift */; };
@@ -24,6 +26,8 @@
 		420A8E667C39A1FC27CD26F3 /* Pods-OnlyCatSNS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlyCatSNS.release.xcconfig"; path = "Target Support Files/Pods-OnlyCatSNS/Pods-OnlyCatSNS.release.xcconfig"; sourceTree = "<group>"; };
 		A38E8B40243D65A4000E11B8 /* TimeLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		A38E8B42243D67C8000E11B8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		A3C343A124418D4300AFC001 /* ContentsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsData.swift; sourceTree = "<group>"; };
+		A3C343A3244190FA00AFC001 /* GoogleService-Info .plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info .plist"; sourceTree = "<group>"; };
 		A3D3328F2439BC800008854E /* OnlyCatSNS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlyCatSNS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D332922439BC800008854E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3D332942439BC800008854E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 				A3D332982439BC800008854E /* Main.storyboard */,
 				A3D3329B2439BC830008854E /* Assets.xcassets */,
 				A3D3329D2439BC830008854E /* LaunchScreen.storyboard */,
+				A3C343A3244190FA00AFC001 /* GoogleService-Info .plist */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 		A3D332A72439BEA70008854E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A3C343A124418D4300AFC001 /* ContentsData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,6 +190,7 @@
 				A3D3329F2439BC830008854E /* LaunchScreen.storyboard in Resources */,
 				A3D3329C2439BC830008854E /* Assets.xcassets in Resources */,
 				A3D3329A2439BC800008854E /* Main.storyboard in Resources */,
+				A3C343A4244190FA00AFC001 /* GoogleService-Info .plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +248,7 @@
 				A3D332932439BC800008854E /* AppDelegate.swift in Sources */,
 				A3D332952439BC800008854E /* SceneDelegate.swift in Sources */,
 				A38E8B43243D67C8000E11B8 /* PostViewController.swift in Sources */,
+				A3C343A224418D4300AFC001 /* ContentsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

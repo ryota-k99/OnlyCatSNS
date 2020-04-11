@@ -70,10 +70,10 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="129.91071428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Time Line View Controller-->
         <scene sceneID="So2-UL-kut">
             <objects>
-                <viewController id="egg-3s-ToN" sceneMemberID="viewController">
+                <viewController id="egg-3s-ToN" customClass="TimeLineViewController" customModule="OnlyCatSNS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hSQ-ZJ-rgg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,6 +122,9 @@
                                 <rect key="frame" x="311" y="750" width="75" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="POST" image="plus"/>
+                                <connections>
+                                    <action selector="plusButtonPressed:" destination="egg-3s-ToN" eventType="touchUpInside" id="0sc-Yb-wQp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -167,6 +170,9 @@
                                 <state key="normal" title="SHARE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="CMO-F8-tu7" eventType="touchUpInside" id="CRz-qR-8t1"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="コメントを入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-nb-bDF">
                                 <rect key="frame" x="20" y="645" width="382" height="34"/>
