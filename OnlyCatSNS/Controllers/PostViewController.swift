@@ -38,6 +38,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     
     
     @IBAction func shareButtonPressed(_ sender: Any) {
+        print("pushButton!!!!!!!!!!!!!!!!!!!!")
         if contentImage.image == nil{
             DispatchQueue.main.async {
                 self.emptyAlert()
@@ -50,25 +51,30 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         
         let profileImageKey = timeLineDB.child("profileImage").childByAutoId().key
         let contentImageKey = timeLineDB.child("contentImage").childByAutoId().key
-        let profileImageRef = storage.child("\(String(describing: profileImageKey)).jng")
-        let contentImageRef = storage.child("\(String(describing: contentImageKey)).jng")
+        let profileImageRef = storage.child("\(String(describing: profileImageKey!)).jng")
+        print(profileImageRef)
+        let contentImageRef = storage.child("\(String(describing: contentImageKey!)).jng")
         
-        var profileImageData = Data()
-        var contentImageData = Data()
+        var profileImageData:Data = Data()
+        var contentImageData:Data = Data()
         
         if profileImage.image != nil{
             profileImageData = (profileImage.image?.jpegData(compressionQuality: 0.01)) as! Data
+            print(profileImageData)
         }
         
         if contentImage.image != nil{
             contentImageData = (contentImage.image?.jpegData(compressionQuality: 0.01)) as! Data
+            print("imageDataIN!!!!!!!!!!!!!!!!!!!!")
         }
         
         let uploadTask = profileImageRef.putData(profileImageData,metadata: nil){
             (metadata,error) in
             if error != nil{
+                print("stopTask!!!!!!!!!!!!!!!!!!!")
                 return
             }
+            print("startTask!!!!!!!!!!!!!!!!!!!")
             let uploadTask = contentImageRef.putData(contentImageData,metadata: nil){
                 (metadata,error) in
                 if error != nil{
@@ -79,6 +85,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                     if profileImageURL != nil{
                         contentImageRef.downloadURL { (contentImageURL, error) in
                             if contentImageURL != nil{
+                                 print("URL!!!!!!!!!!!!!!!!!!!!")
                                 let resultURL = contentImageURL?.absoluteString
                                 self.visualRecognition.classify(url: resultURL) {response, error in
                                     if error != nil{
@@ -89,6 +96,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                                     if resultString.contains("cat") == false{
                                         DispatchQueue.main.async {
                                             self.checkAlert()
+                                            print("nekotyekku!!!!!!!!!!!!!!!!!!!!")
                                         }
                                     }else{
                                         DispatchQueue.main.async {
