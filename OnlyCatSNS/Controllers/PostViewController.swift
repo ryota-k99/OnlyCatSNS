@@ -100,11 +100,11 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                                         }
                                     }else{
                                         DispatchQueue.main.async {
-                                            if self.userNameString != nil && profileImageURL != nil && contentImageURL != nil && self.commentTextField.text != nil{
-                                                let timeLineInfo = ["userName":self.userNameString,
-                                                                    "profileImageURL":profileImageURL,
-                                                                    "contentImageURL":contentImageURL,
-                                                                    "comment":self.commentTextField.text,
+                                            if self.userNameString != nil && profileImageURL?.absoluteString != nil && contentImageURL?.absoluteString != nil && self.commentTextField.text != nil{
+                                                let timeLineInfo = ["userName":self.userNameString as Any,
+                                                                    "profileImageURL":profileImageURL?.absoluteString as Any,
+                                                                    "contentImageURL":contentImageURL?.absoluteString as Any,
+                                                                    "comment":self.commentTextField.text as Any,
                                                                     "postDate":ServerValue.timestamp()] as [String:Any]
                                                 timeLineDB.updateChildValues(timeLineInfo)
                                                 self.navigationController?.popViewController(animated: true)
