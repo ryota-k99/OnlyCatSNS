@@ -20,7 +20,13 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
+        fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        fetchData()
     }
     
 
@@ -30,6 +36,19 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
+        
+        let profileImageView = cell.viewWithTag(1) as! UIImageView
+        profileImageView.sd_setImage(with: URL(string: contentArray[indexPath.row].profileImageString), completed: nil)
+        
+        let userNameLabel = cell.viewWithTag(2) as! UILabel
+        userNameLabel.text = contentArray[indexPath.row].userNameString
+        
+        let contentImageView = cell.viewWithTag(3) as! UIImageView
+        contentImageView.sd_setImage(with: URL(string: contentArray[indexPath.row].contentImageString), completed: nil)
+        
+        let commentLabel = cell.viewWithTag(4) as! UILabel
+        commentLabel.text = contentArray[indexPath.row].commentString
+        
         return cell
        }
     
