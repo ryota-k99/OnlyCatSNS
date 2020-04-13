@@ -38,7 +38,6 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     
     
     @IBAction func shareButtonPressed(_ sender: Any) {
-        print("pushButton!!!!!!!!!!!!!!!!!!!!")
         if contentImage.image == nil{
             DispatchQueue.main.async {
                 self.emptyAlert()
@@ -65,16 +64,15 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         
         if contentImage.image != nil{
             contentImageData = (contentImage.image?.jpegData(compressionQuality: 0.01)) as! Data
-            print("imageDataIN!!!!!!!!!!!!!!!!!!!!")
         }
         
         let uploadTask = profileImageRef.putData(profileImageData,metadata: nil){
             (metadata,error) in
             if error != nil{
-                print("stopTask!!!!!!!!!!!!!!!!!!!")
+                print("stopTask!")
                 return
             }
-            print("startTask!!!!!!!!!!!!!!!!!!!")
+            print("startTask!!")
             let uploadTask = contentImageRef.putData(contentImageData,metadata: nil){
                 (metadata,error) in
                 if error != nil{
@@ -85,7 +83,6 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                     if profileImageURL != nil{
                         contentImageRef.downloadURL { (contentImageURL, error) in
                             if contentImageURL != nil{
-                                 print("URL!!!!!!!!!!!!!!!!!!!!")
                                 let resultURL = contentImageURL?.absoluteString
                                 self.visualRecognition.classify(url: resultURL) {response, error in
                                     if error != nil{
@@ -96,7 +93,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                                     if resultString.contains("cat") == false{
                                         DispatchQueue.main.async {
                                             self.checkAlert()
-                                            print("nekotyekku!!!!!!!!!!!!!!!!!!!!")
+                                            print("checkWhetherCatOrNot")
                                         }
                                     }else{
                                         DispatchQueue.main.async {
@@ -164,7 +161,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     }
     
     func checkAlert(){
-        let alert = EMAlertController(title: "どうやら猫ではないようです！", message: "猫の画像のみ投稿できます！")
+        let alert = EMAlertController(title: "猫ではありません。", message: "猫の画像を選択してください。")
         let action = EMAlertAction(title: "OK", style: .normal)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -172,7 +169,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     }
     
     func emptyAlert(){
-        let alert = EMAlertController(title: "何かが入力されていません！", message: "入力してください。")
+        let alert = EMAlertController(title: "空欄があります。", message: "入力してください。")
         let action = EMAlertAction(title: "OK", style: .normal)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)

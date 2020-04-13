@@ -39,16 +39,11 @@ class LoginViewController: UIViewController,UIImagePickerControllerDelegate, UIN
             }
         }
         
-        
-        
         enterButton.layer.cornerRadius = 30.0
         profileImage.layer.cornerRadius = 50.0
         
         profileImage.isUserInteractionEnabled = true
         userNameAlertLabel.isHidden = true
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,23 +80,23 @@ class LoginViewController: UIViewController,UIImagePickerControllerDelegate, UIN
     }
     
     func showAlert(){
-        let alertController = UIAlertController(title: "選択", message: "どちらを選択しますか？", preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: "カメラ", style: .default) { (alert) in
+        let alertController = UIAlertController(title: "選択", message: "選択してください", preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: "Camera", style: .default) { (alert) in
             self.doCamera()
         }
     
-        let action2 = UIAlertAction(title: "アルバム", style: .default) { (alert) in
+        let action2 = UIAlertAction(title: "Album", style: .default) { (alert) in
             self.doAlbum()
         }
             
-        let action3 = UIAlertAction(title: "キャンセル", style: .cancel)
+        let action3 = UIAlertAction(title: "Cancel", style: .cancel)
             
         alertController.addAction(action1)
         alertController.addAction(action2)
         alertController.addAction(action3)
             
         present(alertController,animated: true,completion: nil)
-        print("-------------------------------")
+        print("presented alert!")
         
     }
     
