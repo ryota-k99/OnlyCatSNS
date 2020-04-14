@@ -15,11 +15,13 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     var contentArray = [ContentsData]()
 
     @IBOutlet weak var tableView: UITableView!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
+//        profileImageView.layer.cornerRadius = 100.0
         fetchData()
     }
     
@@ -38,16 +40,17 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
         
         let profileImageView = cell.viewWithTag(1) as! UIImageView
-        profileImageView.sd_setImage(with: URL(string: contentArray[indexPath.row].profileImageString), completed: nil)
+        profileImageView.sd_setImage(with: URL(string: contentArray[contentArray.count - indexPath.row - 1].profileImageString), completed: nil)
+        profileImageView.layer.cornerRadius = 30.0
         
         let userNameLabel = cell.viewWithTag(2) as! UILabel
-        userNameLabel.text = contentArray[indexPath.row].userNameString
+        userNameLabel.text = contentArray[contentArray.count - indexPath.row - 1].userNameString
         
         let contentImageView = cell.viewWithTag(3) as! UIImageView
-        contentImageView.sd_setImage(with: URL(string: contentArray[indexPath.row].contentImageString), completed: nil)
+        contentImageView.sd_setImage(with: URL(string: contentArray[contentArray.count - indexPath.row - 1].contentImageString), completed: nil)
         
         let commentLabel = cell.viewWithTag(4) as! UILabel
-        commentLabel.text = contentArray[indexPath.row].commentString
+        commentLabel.text = contentArray[contentArray.count - indexPath.row - 1].commentString
         
         return cell
        }
@@ -66,7 +69,7 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
     }
     
     func fetchData(){
-        let fetchDataRef = Database.database().reference().child("content").queryLimited(toLast: 100).queryOrdered(byChild: "postaDate").observe(.value) { (snapshots) in
+        let fetchDataRef = Database.database().reference().child("content").queryLimited(toLast: 100).queryOrdered(byChild: "pastDate").observe(.value) { (snapshots) in
             self.contentArray.removeAll()
             
             if let snapshot = snapshots.children.allObjects as? [DataSnapshot]{
@@ -86,7 +89,10 @@ class TimeLineViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 }
                 
                 self.tableView.reloadData()
-                
+                let indexPath = IndexPath(row: self.contentArray.count - 1, section: 0)
+                if self.contentArray.count >= 5{
+                    self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                }
             }
         }
     }

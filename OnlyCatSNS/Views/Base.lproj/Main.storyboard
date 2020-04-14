@@ -148,6 +148,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJV-5c-OQa">
+                                <rect key="frame" x="0.0" y="687" width="414" height="209"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90C-Sp-GLg">
                                 <rect key="frame" x="33" y="744" width="80" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -203,6 +208,7 @@
                     <navigationItem key="navigationItem" id="9D5-MF-WVJ"/>
                     <connections>
                         <outlet property="commentTextField" destination="gXQ-nb-bDF" id="xRz-lZ-TH2"/>
+                        <outlet property="containerView" destination="SJV-5c-OQa" id="p5L-gq-e2b"/>
                         <outlet property="contentImage" destination="0T8-RG-PVQ" id="x6p-od-HsH"/>
                         <outlet property="profileImage" destination="TnI-ey-Olc" id="YZ1-LE-NTh"/>
                         <outlet property="userNameLabel" destination="8FI-Tl-znM" id="wqt-Dt-Rba"/>

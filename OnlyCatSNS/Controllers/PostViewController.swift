@@ -16,14 +16,18 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     var userNameString = String()
     var profileImageData = Data()
     
-    var contentsArray = [ContentsData]()
     
     let visualRecognition = VisualRecognition(version: "2020-04-04", authenticator: WatsonIAMAuthenticator(apiKey: "LfnpGue2rs9EDYEe3g6-RMaRpKgUMYspfpySTm06kHUn"))
+    
+    let screenSize = UIScreen.main.bounds.size
+    var contentCount = Int()
+    
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var contentImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var containerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +38,29 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         profileImage.image = UIImage(data: profileImageData)
         
         visualRecognition.serviceURL = "https://api.kr-seo.visual-recognition.watson.cloud.ibm.com/instances/012b267b-e2da-4ec9-b040-1b5051fdad0e"
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+         
+        NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    @objc func keyboardWillShow(_ notificaiton: NSNotification){
+        let keyboardHeight = ((notificaiton.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as Any ) as AnyObject).cgRectValue.height
+        
+        commentTextField.frame.origin.y = screenSize.height - keyboardHeight - commentTextField.frame.height
+    }
+    
+    @objc func keyboardWillHide(_ notificaiton: NSNotification){
+        
+        commentTextField.frame.origin.y = screenSize.height - commentTextField.frame.height - containerView.frame.height
+        guard let rect = ((notificaiton.userInfo![UIResponder.keyboardFrameBeginUserInfoKey] as Any ) as AnyObject).cgRectValue,
+            let duration = notificaiton.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? TimeInterval else{return}
+        
+        UIView.animate(withDuration: duration){
+            let transfrom = CGAffineTransform(translationX: 0, y: 0)
+            self.view.transform = transfrom
+        }
+    }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
         if contentImage.image == nil{
@@ -56,6 +81,8 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         
         var profileImageData:Data = Data()
         var contentImageData:Data = Data()
+        
+        
         
         if profileImage.image != nil{
             profileImageData = (profileImage.image?.jpegData(compressionQuality: 0.01)) as! Data
@@ -102,7 +129,8 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                                                                     "profileImageURL":profileImageURL?.absoluteString as Any,
                                                                     "contentImageURL":contentImageURL?.absoluteString as Any,
                                                                     "comment":self.commentTextField.text as Any,
-                                                                    "postDate":ServerValue.timestamp()] as [String:Any]
+                                                                    "postDate":ServerValue.timestamp(),
+                                                                    "contentCount":self.contentCount] as [String:Any]
                                                 timeLineDB.updateChildValues(timeLineInfo)
                                                 self.navigationController?.popViewController(animated: true)
                                             }else{
@@ -176,6 +204,9 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+           commentTextField.resignFirstResponder()
+       }
     
     
     

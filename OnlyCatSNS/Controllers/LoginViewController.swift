@@ -16,7 +16,7 @@ class LoginViewController: UIViewController,UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var UserNameTextField: UITextField!
     @IBOutlet weak var enterButton: UIButton!
     @IBOutlet weak var userNameAlertLabel: UILabel!
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,9 @@ class LoginViewController: UIViewController,UIImagePickerControllerDelegate, UIN
     }
   
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UserNameTextField.resignFirstResponder()
+    }
     
 
 }
