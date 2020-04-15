@@ -17,7 +17,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     var profileImageData = Data()
     
     
-    let visualRecognition = VisualRecognition(version: "2020-04-04", authenticator: WatsonIAMAuthenticator(apiKey: "LfnpGue2rs9EDYEe3g6-RMaRpKgUMYspfpySTm06kHUn"))
+    let visualRecognition = VisualRecognition(version: "2020-04-04", authenticator: WatsonIAMAuthenticator(apiKey: "apiKey"))
     
     let screenSize = UIScreen.main.bounds.size
     var contentCount = Int()
@@ -37,7 +37,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         userNameLabel.text = userNameString
         profileImage.image = UIImage(data: profileImageData)
         
-        visualRecognition.serviceURL = "https://api.kr-seo.visual-recognition.watson.cloud.ibm.com/instances/012b267b-e2da-4ec9-b040-1b5051fdad0e"
+        visualRecognition.serviceURL = "URL"
         
         NotificationCenter.default.addObserver(self, selector: #selector(PostViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
          
@@ -71,7 +71,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         }
         
         let timeLineDB = Database.database().reference().child("content").childByAutoId()
-        let storage = Storage.storage().reference(forURL: "gs://onlycatsnsapp.appspot.com")
+        let storage = Storage.storage().reference(forURL: "URL")
         
         let profileImageKey = timeLineDB.child("profileImage").childByAutoId().key
         let contentImageKey = timeLineDB.child("contentImage").childByAutoId().key
@@ -124,7 +124,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
                                         }
                                     }else{
                                         DispatchQueue.main.async {
-                                            if self.userNameString != nil && profileImageURL?.absoluteString != nil && contentImageURL?.absoluteString != nil && self.commentTextField.text != nil{
+                                            if self.userNameString != nil && profileImageURL?.absoluteString != nil && contentImageURL?.absoluteString != nil && self.commentTextField.text?.isEmpty != true{
                                                 let timeLineInfo = ["userName":self.userNameString as Any,
                                                                     "profileImageURL":profileImageURL?.absoluteString as Any,
                                                                     "contentImageURL":contentImageURL?.absoluteString as Any,
